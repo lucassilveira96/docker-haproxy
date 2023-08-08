@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  haproxy:
+    build:
+      context: ./
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - './haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro'
+      - '/run/haproxy/'
+      - '/path/to/certificate.pem:/path/to/certificate.pem'
+    networks:
+      default:
+        ipv4_address: 10.253.254.75
+
+networks:
+  default:
+    external:
+      name: haproxy-network
